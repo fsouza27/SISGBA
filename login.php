@@ -22,17 +22,10 @@
     <header>
 			<nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
-        <div class="navbar-header">
-					<button class="menu-anchor">
-						 <span></span>
-						 <span></span>
-						 <span></span>
-					 </button>
-        </div>
+       
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-				<!--		<li><a href="cadastroAluno.php">Cadastro de Alunos</a></li>
-						<li><a href="#">Cadastro de Trabalhos Acadêmicos</a></li> -->
+
             <li class="active"><a href="login.php">Login</a></li>
           </ul>
         </div> <!--/.nav-collapse-->

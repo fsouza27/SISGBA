@@ -3,22 +3,9 @@
     session_start();
 
     if(!isset($_SESSION['emailSession']) AND !isset($_SESSION['senhaSession'])){
-        header("Location: login.php");
+        header("Location: sair.php");
         exit;
     }
-
-/*
-include_once('conexao.php');
-
-    $filtro = isset($_POST['filtro'])?$_POST['filtro']:"";
-
-    $sql = "SELECT * FROM alunos WHERE nome LIKE '%$filtro%'
-    OR ra LIKE  '%$filtro%' OR email LIKE '%$filtro%'
-    ORDER BY nome";
-    $consulta = mysqli_query($con,$sql);
-    $registros = mysqli_num_rows($consulta);
-    */
-
 
 ?>
 <!DOCTYPE html>
@@ -30,16 +17,20 @@ include_once('conexao.php');
 		<title>SISGBA</title>
 		<!-- CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" href="stylesheets/main.css" type="text/css"/>
-        <link rel="stylesheet" href="css/estilo.css" type="text/css"/>
+		<link rel="stylesheet" href="css/estilo.css" type="text/css"/>
+      
 
-        <?php
+        <?php 
+        include_once('conexao.php');
         $id = filter_input(INPUT_GET,"id");
         $nome = filter_input(INPUT_GET,"nome");
-        $ra = filter_input(INPUT_GET,"ra");
+        $rf = filter_input(INPUT_GET,"rf");
         $email = filter_input(INPUT_GET,"email");
-        $curso = filter_input(INPUT_GET,"curso");
-
+        $disciplina = (string) filter_input(INPUT_GET,"disciplina");
+        
+        $c = (string) $disciplina;
+        mysqli_close($con);
+        
         ?>
 
 
@@ -47,31 +38,38 @@ include_once('conexao.php');
 	<body>
 		<div class="nav-menu">
 				<ul class="">
-					<li><a href="cadastroAluno.php">Cadastro de Alunos</a></li>
-					<li><a href="#">Cadastro de Trabalhos Acadêmicos</a></li>
-					<li><a href="login.php">Login</a></li>
+					<li><a href="cadastroAluno.php"></a></li>
 				</ul>
 		</div>
 		<header>
 			<nav class="navbar navbar-default navbar-fixed-top">
       <div class="container-fluid">
 				<div class="navbar-header">
-					<button class="menu-anchor">
 						 <span></span>
 						 <span></span>
 						 <span></span>
-					 </button>
 				</div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="#">Alunos</a>
-                <ul list-style="none" class="sub-menu">
-                <li><a href="cadastroAluno.php">Cadastrar</a></li>
-                </ul>
+                <a href="alunos.php">Alunos</a>
+
             </li>
-              <li><a href="#">Cadastro deTrabalhos Acadêmicos</a></li>
-              <li><a href="login.php" id="sair">Sair</a></li>
+             <li><a href="professores.php">Professores</a></li>
+              <li><a href="#">Trabalhos Acadêmicos</a></li>
+              <li><a href="sair.php" id="sair">Sair</a></li>
+              
+              <?php
+               $login_cookie = $_COOKIE['email'];
+                    if(isset($login_cookie)){
+                      echo"Bem-Vindo, $login_cookie <br>";
+                      //echo"Essas informações <font color='red'>PODEM</font> ser acessadas por você";
+                    }else{
+                      echo"Bem-Vindo, convidado <br>";
+                      echo"Essas informações <font color='red'>NÃO PODEM</font> ser acessadas por você";
+                      echo"<br><a href='login.php'>Faça Login</a> Para ler o conteúdo";
+                    }
+              ?>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -82,21 +80,21 @@ include_once('conexao.php');
 			<section class="cadastro-form">
 				<div class="container">
 					<div class="col-xs-12">
-							<h2>Cadastro de Alunos</h2>
+							<h2>Alterar Professor</h2>
 					</div>
 					<div id="conteudo" class="col-sm-8">
-						<form id="cadastro_feirante" action="alteraAluno.php">
+						<form method="GET" id="altera_professor" action="functionAlteraProfessor.php">
 							<div class="form-group">
 								<!--<label for="pesquisa">Consulta</label>-->
-								ID<input class="form-control" type="text" name="id"  value="<?php echo $id ?>" disabled=""  /><br>
+								ID<input class="form-control" type="text" name="id"  value="<?php echo $id ?>" /><br>
 								Nome<input class="form-control" type="text" name="nome" value="<?php echo $nome ?>" /><br>
-								RA<input class="form-control" type="text" name="ra" value="<?php echo $ra ?>" /><br>
-								Email<input class="form-control" type="text" name="email" value="<?php echo $email ?>" /> <br>
-								Curso<input class="form-control" type="text" name="curso" value="<?php echo $curso ?>" /> <br>
+								RF<input class="form-control" type="text" name="rf" value="<?php echo $rf ?>" /><br>
+								Email<input class="form-control" type="email" name="email" value="<?php echo $email ?>" /> <br>
+                                Disciplina<input class="form-control" type="text" name="disciplina" value="<?php echo $disciplina ?>" /> <br>
 							</div>
 
                             <div class="from-group">
-								<button type="submit" class="btn btn-primary pull-right">Alterar</button>
+								<button type="submit" class="btn btn-success pull-right"> Alterar</button>
 								<div class="clearfix"></div>
 							</div>
 							<div class="clearfix"></div>
@@ -112,7 +110,7 @@ include_once('conexao.php');
 
             <?php /*
             if(!$filtro){
-                    //echo "Digite uma palvra para iniciar a busca<br><br>";
+                    //echo "Digite uma palavra para iniciar a busca<br><br>";
                     echo "<br><br>";
             }else{
                 echo "Resultado da pesquisa com a palavra <strong>$filtro</strong><br><br>";
@@ -142,6 +140,7 @@ include_once('conexao.php');
 
     </div>
 			<footer>
+			<br><br><br>
 				<div class="container text-center">
 					<b>SISGBA</b> | &copy Todos os direitos reservados
 				</div>

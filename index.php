@@ -1,9 +1,7 @@
 <?php
     session_start();
-
     if(!isset($_SESSION['emailSession']) AND !isset($_SESSION['senhaSession'])){
-        header("Location: login.php");
-
+        header("Location: sair.php");
         exit;
     }
 ?>
@@ -15,15 +13,19 @@
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>SISGBA</title>
-		<!-- CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" href="stylesheets/main.css" type="text/css"/>
+		<!-- CSS  -->
+				<link rel="stylesheet" href="/css/estilo.css" type="text/css"/>
+		<link rel="stylesheet" href="media/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="media/font-awesome/css/font-awesome.css">
 	</head>
-	<body>
+	
+
+    
+    <body>
 		<div class="nav-menu">
 				<ul class="">
-					<li><a href="consultaAluno.php">Cadastro de Alunos</a></li>
-					<li><a href="#">Cadastro de Trabalhos Acadêmicos</a></li>
+					<li><a href="alunos.php"></a></li>
 					<li><a href="login.php"></a></li>
 				</ul>
 		</div>
@@ -31,17 +33,16 @@
 			<nav class="navbar navbar-default navbar-fixed-top">
 				<div class="container-fluid">
 					<div class="navbar-header">
-						<button class="menu-anchor">
 							 <span></span>
 							 <span></span>
 							 <span></span>
-					  </button>
 					</div>
 					<div id="navbar" class="navbar-collapse collapse">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="consultaAluno.php">Cadastro de Alunos</a></li>
-							<li><a href="#">Cadastro de Trabalhos Acadêmicos</a></li>
-							<li><a href="sair.php" id="sair">Sair</a></li>
+							<li><a href="alunos.php">Alunos</a></li>
+                            <li><a href="professores.php">Professores</a></li>
+                            <li><a href="#">Trabalhos Acadêmicos</a></li>
+                            <li><a href="sair.php" id="sair">Sair</a></li>
 
                             <?php
                               $login_cookie = $_COOKIE['email'];
@@ -89,29 +90,34 @@
 								<h3>Aluno</h3>
 								<p>
                                 </p>
-									<a href="consultaAluno.php" target="_blank" class="btn btn-primary">Cadastro de Alunos</a>
+									<a href="alunos.php" target="_blank" class="btn btn-primary"><i class="glyphicon glyphicon-education"></i> Cadastro de Alunos</a>
 							</div>
 						</div>
 						<div class="col-sm-6 interessado">
 							<div class="box">
-								<h3>Trabalhos</h3>
+								<h3>Professores</h3>
 								<p>
                                 </p>
-									<a href="#" target="_blank" class="btn btn-primary">Cadastro de Trabalhos Acadêmicos</a>
+									<a href="professores.php" target="_blank" class="btn btn-primary">Cadastro de Professores</a>
 							</div>
 						</div>
 					</div>
-				</div>
-			</section>
-			<footer>
-				<div class="container text-center">
-					<hr>
-					<b>SISGBA</b> | &copy Todos os direitos reservados
-				</div>
-			</footer>
+                </div>
+            </section>
+            
+            
+
 		</main>
+
 	<!--SCRIPTS-->
 	<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
 	<script src="js/main.js"></script>
+	        <footer>
+            <div class="container text-center">
+                <hr>
+                <b>SISGBA</b> | &copy Todos os direitos reservados
+            </div>
+        </footer>
 	</body>
+
 </html>

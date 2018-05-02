@@ -1,5 +1,11 @@
 <?php
+ //Verifica se o usuário está logado
+    session_start();
 
+    if(!isset($_SESSION['emailSession']) AND !isset($_SESSION['senhaSession'])){
+        header("Location: login.php");
+        exit;
+    }
 include_once("conexao.php");
 
 $nome = $_POST['nome'];
@@ -7,31 +13,36 @@ $ra = $_POST['ra'];
 $email = $_POST['email'];
 $curso= $_POST['curso'];
 $senha= $_POST['senha'];
+$confSenha = $_POST['confSenha'];
 
 $query_select = "SELECT email FROM alunos WHERE email = '$email'";
 $select = mysqli_query($con,$query_select);
 $array = mysqli_fetch_array($select);
 $logarray = $array['email'];
 
-if($email == "" || $email == null){
-    echo"<script language='javascript' type='text/javascript'>alert('O campo email deve ser preenchido');window.location.href='cadastroAluno.php';</script>";
+if($confSenha != $senha) {
+     echo"<script language='javascript' type='text/javascript'>alert('As senhas não conferen');window.location.href='cadastroAluno.php';</script>";
+} else {
+    if($email == "" || $email == null){
+        echo"<script language='javascript' type='text/javascript'>alert('O campo email deve ser preenchido');window.location.href='cadastroAluno.php';</script>";
 
-    }else{
-      if($logarray == $email){
-         echo"<script language='javascript' type='text/javascript'>alert('Esse email já está cadastrado!');window.location.href='cadastroAluno.php';</script>";
-        die();
+        }else{
+          if($logarray == $email){
+             echo"<script language='javascript' type='text/javascript'>alert('Esse email já está cadastrado!');window.location.href='cadastroAluno.php';</script>";
+            die();
 
-      }else{
-            $query = "INSERT INTO alunos (nome,ra,email,curso,senha) VALUES ('$nome','$ra','$email','$curso','$senha')";
-            $insert = mysqli_query($con,$query);
+          }else{
+                $query = "INSERT INTO alunos (nome,ra,email,curso,senha) VALUES ('$nome','$ra','$email','$curso','$senha')";
+                $insert = mysqli_query($con,$query);
 
-            if($insert){
-              echo"<script language='javascript' type='text/javascript'>alert('Usuário cadastrado com sucesso!');window.location.href='login.php'</script>";
-            }else{
-              echo"<script language='javascript' type='text/javascript'>alert('Não foi possível cadastrar esse usuário');window.location.href='cadastroAluno.php'</script>";
-            }
-      }
+                if($insert){
+                  echo"<script language='javascript' type='text/javascript'>alert('Usuário cadastrado com sucesso!');window.location.href='alunos.php'</script>";
+                }else{
+                  echo"<script language='javascript' type='text/javascript'>alert('Não foi possível cadastrar esse usuário');window.location.href='cadastroAluno.php'</script>";
+                }
+          }
     }
+}
 
 
 

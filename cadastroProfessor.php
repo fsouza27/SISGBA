@@ -21,8 +21,7 @@
 	<body>
 		<div class="nav-menu">
 				<ul class="">
-					<li><a href="consultaAluno.php">Cadastro de Alunos</a></li>
-					<li><a href="#">Cadastro de Trabalhos Acadêmicos</a></li>
+					<li><a href="consultaAluno.php"></a></li>
 				</ul>
 		</div>
 		<header>
@@ -57,28 +56,29 @@
 		<div class="clearfix"></div>
     </header>
 		<main>
+		<container>
 			<section class="cadastro-form">
 				<div class="container">
 					<div class="col-xs-12">
-							<h2>Cadastro de Aluno</h2>
+							<h2>Cadastro de Professor</h2>
 					</div>
 					<div class="col-sm-8">
-						<form id="cadastro_aluno" action="processa.php" method="post">
+						<form id="cadastro_professor" action="processaProfessor.php" method="post">
 							<div class="form-group">
 								<label for="nome">Nome:</label>
 								<input type="text" name="nome" class="form-control" value="">
 							</div>
 							<div class="form-group">
-								<label for="nome">RA:</label>
-								<input type="number" name="ra" class="form-control" value="">
-							</div>
-							<div class="form-group">
-								<label for="curso">Curso</label>
-								<input type="text" name="curso" class="form-control" value="">
+								<label for="nome">RF:</label>
+								<input type="number" name="rf" class="form-control" value="">
 							</div>
 							<div class="form-group">
 								<label for="email">Email</label>
 								<input type="text" name="email" class="form-control" value="">
+							</div>	
+							<div class="form-group">
+								<label for="disciplina">Disciplina</label>
+								<input type="text" name="disciplina" class="form-control" value="">
 							</div>
 							<div class="form-group">
 								<label for="senha">Senha</label>
@@ -102,12 +102,17 @@
 					</div>
 				</div>
 			</section>
-			<footer>
+			
+		</container>
+				<footer>
 				<div class="container text-center">
+        <br><br><br><br>
 					<b>SISGBA</b> | &copy Todos os direitos reservados
 				</div>
 			</footer>
-		</main>
+	
+			</main>
+		
 	<!--SCRIPTS-->
 	<script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
 	<script src="js/main.js" charset="utf-8"></script>
